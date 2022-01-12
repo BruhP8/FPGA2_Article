@@ -49,3 +49,19 @@ Utilisation d'un accelerateur SHA256. *Voire référence 7*.
 
 LAC est basé sur ce type d'opération, a la fois pour créer des "instances RLWE" au chiffrement, et au déchiffrement.
 Principe : remplacer les multiplciations par des additions et soustractions, des opérations beaucoup plus simples à faire sur des polynomes
+Les chercheurs ont utilisé un module faisant des additions par *convolution positive* qu'ils ont modifié pour supporter également la *convolution négative* 
+étant donné que LAC utilise les deux méthodes. Cette modification a nécessité d'ajouter des MUX et de modifier la partie de controle du circuit 
+
+En plus de ca, ils voulaient développer un algo logiciel permettant de passer de manière flexible de LAC 128 à LAC196-256, en découpant les multiplications de polynomes en deux parties. (chaque ploynome est découpé en deux parties égales, et la multiplication combine les parties de chaque polynome).
+En revanche, cet algorithme imposant de réaliser des multiplications de polynomes, et étant donné que les tests préliminaires indiquaient que la méthode des additions implémentée était très efficace, cette solution n'a pas été gardée.
+A la place, ils ont re utilisé leur matériel et utilisé un double découpage (4 parties de 256 pour une multiplication deux polynomes de 1024)
+
+# Correction d'erreurs (décodeur BCH)
+
+
+
+
+# Conclusion 
+LAC fonctionne mais présente des goulots d'étranglement limitant les performances de la méthode. Ce papier présente une implémentation accélérée par du matériel
+limitant ces goulots d'étranglements. De plus, le jeu d'instruction RISCV dédié permet d'augmenter encore les perf de cette implémentation tout en étant modulaire
+
