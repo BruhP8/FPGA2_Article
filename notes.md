@@ -57,10 +57,30 @@ En revanche, cet algorithme imposant de réaliser des multiplications de polynom
 A la place, ils ont re utilisé leur matériel et utilisé un double découpage (4 parties de 256 pour une multiplication deux polynomes de 1024)
 
 # Correction d'erreurs (décodeur BCH)
+## 3 étapes
+* Détéction et calcul de *syndromes*
+* Calcul du polynome d'erreur avec l'algorithme Berlekamp-Massey
+* Calcul de la cause de l'erreur avec l'algorithme de Chien, accéléré par du matériel car partie la plus lente du programme.
 
+MULGF : chaque bit de A et confronté a tous les bits de B en séquence en commencant par le dernier bit.
+        Effectue des décalages via registres avec une boucle de retour injectant le dernier bit du résultat dans le décaleur aux positions 0 et 4
+        Fin en 9 cycles
+Chien accel :
+        MULGF est utilisé pour sa flexibilité tout en restant relativement econome en espace requis. 4 d'entre eux sont utilisés en // pour accelerer Chien
+        La sortie des MUGF est redirigée a leur entrée d'avoir a remettre à jour les valeurs des registres et gagner du temps (on n'a alors besoin de charger des
+        valeurs qu'une fois toutes les 4 itérations)
 
+# RISCV
 
-
+Utilisation d'un processeur RISCV 4 étages (*RISCY*, IF, ID, EX, WB) qui implémente les sets d'instructions I C et M 
+Composants :
+* __IF__ buffer *prefetch*
+* __ID__ décodeur d'instructions
+* __ID__ GPR : banc de registres  
+* __EX__ ALU : unité arithmétique et logique
+* __EX__ MULT : unité de multiplications
+* __EX__ PQ-ALU : l'ALU post quantique développée par les chercheurs contenant les 4 accelerateurs décrits (Chien et MULGF, multiplicateur polynomial)
+* __EX__ LSU : l'unité load-store 
 # Conclusion 
 LAC fonctionne mais présente des goulots d'étranglement limitant les performances de la méthode. Ce papier présente une implémentation accélérée par du matériel
 limitant ces goulots d'étranglements. De plus, le jeu d'instruction RISCV dédié permet d'augmenter encore les perf de cette implémentation tout en étant modulaire
