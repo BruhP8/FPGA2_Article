@@ -79,8 +79,28 @@ Composants :
 * __ID__ GPR : banc de registres  
 * __EX__ ALU : unité arithmétique et logique
 * __EX__ MULT : unité de multiplications
-* __EX__ PQ-ALU : l'ALU post quantique développée par les chercheurs contenant les 4 accelerateurs décrits (Chien et MULGF, multiplicateur polynomial)
+* __EX__ PQ-ALU : l'ALU post quantique développée par les chercheurs contenant les 4 accelerateurs décrits (Chien et MULGF, multiplicateur polynomial et MOD q)
 * __EX__ LSU : l'unité load-store 
+
+Ajout de 4 instructions via la modularité du RISCV :
+* pq.mul_ter 
+* pq.mul_chien
+* pq.sha256
+* pq.modq  
+Opcode dédié sur instructions de type R : 0x77. Activation du bon module accelerateur via le champ func3.  
+Utilisation des input/output buffers car opérandes trop grandes pour les registres (qui font que 32b)
+
+# Résultats 
+## Attaques dans le code BCH
+
+Les aurtes travaux ne sont pas exactement temps constant ce qui peut etre exploité lors d'attaques
+
+## Implémentation
+Implémentation sur Ultrascale+ et compilation w/ compilateur officiel Berkley pour RISCV.
+Perf 20% inférieure aux autres implémentation mais plus sécurisée et configurable. Surtout du au module sha256, au code de correction d'erreur et au re encodage 
+Potentielle amélioration : passer de sha256 à Keccak -> requiers plus d'espace mais plus performant
+Aucune utilisation de BRAM, moins de DSP mais plus de LUT et reg
+
 # Conclusion 
 LAC fonctionne mais présente des goulots d'étranglement limitant les performances de la méthode. Ce papier présente une implémentation accélérée par du matériel
 limitant ces goulots d'étranglements. De plus, le jeu d'instruction RISCV dédié permet d'augmenter encore les perf de cette implémentation tout en étant modulaire
