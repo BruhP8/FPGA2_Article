@@ -622,6 +622,7 @@ INPUT E:\dev\Tex\Tex\tex\latex\amsfonts\umsb.fd
 INPUT E:\dev\Tex\Tex\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT E:\dev\Tex\Tex\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT E:\dev\Tex\Tex\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT E:\dev\Tex\Tex\fonts\tfm\jknappen\ec\tcrm1200.tfm
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT E:\dev\Tex\Tex\fonts\tfm\jknappen\ec\ecrm1440.tfm
 INPUT E:\dev\Tex\Tex\fonts\tfm\jknappen\ec\ecbx1440.tfm
@@ -655,6 +656,8 @@ INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
+INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1200.pk
+INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1200.pk
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk
 INPUT C:\Users\NICO-PC\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1728.pk

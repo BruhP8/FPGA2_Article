@@ -8,7 +8,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-\author{Legoueix Nicolas}
+\author{Legoueix Nicolas n°28709604}
 \title{FPGA2 - Analyse documentaire et critique \\ Extending RISC-V for HW acceleration of Post-Quantum Scheme LAC \\ DOI 10.23919/DATE48585.2020.9116567}
 \begin{document}
 \maketitle
@@ -90,12 +90,33 @@ x86 ou Arm viennent a l'esprit.
 \subsection{Arm}
 Arm est très établis dans le monde des microcontroleurs notament avec son Cortex M4 ou le Cortex A53. Il est donc très courant que les cartes de développement soient équipées 
 de processeurs Arm. Les résultats obtenus par une implémentation d'une solution à un problème donné sont ainsi très souvent donnés pour ce type de plateforme.\\
+Cependant, le développement d'IP matérielles sur palteformes Arm n'est pas aisé particulièrement en raison de la nature fermée des technologies proposées. Il est donc difficile d'obtenir 
+des accélérateurs hautement intégrés aux processeurs. Les durées de développement en sont également plus longues\\
+Un autre désaventage majeur d'Arm est que l'utilisation et la modification de sa propriété intellectuelle est payante, ce qui rend le cout de développement de nouveau matériel plus élevé.\\
+Enfin, on pourrait mentionner les potentiels conflits d'intérêts induits par le fait d'utiliser du matériel appartenant à une entreprise pour des applications de sécurité. En effet, dans 
+un contexte géopolitique tendu, il serait légitime de se méfier de matériel produit par une entreprise basée dans un autre pays. 
+
+\subsection{RISC-V}
+RISC-V est un jeu d'instruction libre et open source. Par essence, toute personne est donc libre de le modifier a sa guise. Cette philisophie facilite grandement la facilité et la rapidité
+de développement de nouveau matériel, notament grâce au partage de ressources au sein de la communauté.\\
+De plus, il s'agit d'une ISA (Intrustion Set Architecture) modulaire, perettant aux développeurs d'y ajouter leur propres instructions. Cette propriété rend le RISC-V idéal pour la création 
+d'accélérateurs matériels. Elle permet également de n'implémenter que ce qui est nécessaire au microcontroleur. Cela signifie qu'il est possible de minimiser la taille du circuit en évitant 
+d'embarquer du matériel ne servant pas. C'est notament un avantage dans le cadre du développement de matériel embarqué dont l'espace est limité et dont la consommation énergétique doit être contenue. \\
+Il est également possible d'en modifier directement le pipeline, ce qui permet d'y intégrer des accélérateurs matériels. Ce fort niveau d'intégration permet d'éviter les pertes de performances 
+dûes à l'attente du processeur lors de l'utilisation des bus de communication.\\ 
+En revenche, comme il a pû l'être constaté dans l'article proposé, il existe des disparités de performances entre les deux jeux d'instructions. Dans ce cas, de l'ordre de 20\%.
+
+
+\section{SHA256 et Keccak}
 
 
 
 
+\section{Résultats}
+La table II de l'article présente un profilage des temps d'exécutions de l'algorithme LAC. Elle y compare l'exécution d'un code de référence, c'est à dire non optimisé sur les plateformes
+ ARM (Cortex M4) et RISC-V. On peut y voir que si la plateforme Arm est plus rapide à exécuter l'algorithme de référence que la plateforme RISC-V, cette dernière récupère un très net avantage 
+une fois optimisée. Il aurait été intéressant de comparer ces résultats post-optimisation à une implémentation utilisant une plateforme Arm ayant été optimisée.\\
 
-
-RISCV
-SHA256 vs Keccak
+Enfin, les auteurs ne mentionnent pas la taille du code généré (bien que l'on puisse supposer que le RISC-V soit plus compact a ce niveau, étant donné qu'il a permi la création d'instructions 
+dédiées aux quatres accélérateurs) ni l'emprunte mémoire de leur implémentation
 \end{document}
