@@ -6,21 +6,96 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Legoueix Nicolas}
-\title{FPGA2 - Analyse documentaire - Extending RISC-V for HW acceleration of Post-Quantum Scheme LAC}
+\title{FPGA2 - Analyse documentaire et critique \\ Extending RISC-V for HW acceleration of Post-Quantum Scheme LAC \\ DOI 10.23919/DATE48585.2020.9116567}
 \begin{document}
 \maketitle
+\newpage
 \part{Résumé}
-\section{Contexte}
-\subsection{Necessité de nouveaux protocoles, choix faits}
 
-\subsection{LAC post quantique}
+\section{Contexte}
+\subsection{Necessité de nouveaux protocoles, travail effectué}
+La majorité des communications actuelles sont réalisées à l'aide de l'algorithme de cryptographie RSA. Cet algorithme de cryptographie asymétrique utilise deux clés pour le 
+chiffrement des données : une clé publique -crée par un des interlocuteurs et rendu publique- servant à chiffrer les données et une clé privée -connue seulement de l'interlocuteur devant déchiffrer 
+les données et indispensable à ce processus-. Cette méthode se base sur le fait qu'il est impossible de déchiffrer un message sans la clé privée en un temps dit raisonable. En effet, le temps nécessaire 
+pour calculer des factorielles (sur lesquels se base RSA) étant exponentiel, il est de plus en plus difficile de déchiffrer RSA par attaques de force brute.\footnote{Actuellement, le record est RSA-250 soit 829bits, 
+établit en février 2020 par F. Boudot, P. Gaudry, A. Guillevic, N. Heninger, E. Thomé et P. Zimmermann. Les clés privées actuelles font actuellement entre 1024 et 2048 bits. Temps requis : 
+2700 années CPU, c'est a dire qu'il aurait fallu 2700 ans de travail à un seul coeur (dans ce cas, un Intel Xeon Gold 6130 a 2.1Ghz) pour résoudre le problème. Voir \href{https://eprint.iacr.org/2020/697.pdf}{le papier de recherche publié : DOI 10.1007/978-3-030-56880-1\_3} }.\\
+Cependant, l'avènement des processeurs quantiques, et l'arrivée prochaine de vrais ordinateurs quantiques remet en question la résistance de l'algorithme RSA. En effet, ces derniers seraient théoriquement
+capables de déchiffrer une communication RSA en seulement quelques heures de travail.\footnote{Voir \href{https://quantum-journal.org/papers/q-2021-04-15-433/pdf/}{DOI 10.22331/q-2021-04-15-433}}. Il devient donc nécessaire
+de développer des algorithmes résistants aux attaques quantiques, ainsi que de créer le matériel qui sera capable d'exécuter ces nouveaux algorithmes. Parmis eux figurent l'algorithme LAC qui es présenté dans l'article proposé.\\~\\
+Cet article propose une implémentation accélérée matériellement de l'algorithme LAC. Les auteurs y décrivent un total de quatre accélérateurs métériels visant à mitiger les effets des principaux goulots d'étranglements 
+de LAC, tous intégrés dans le pipeline d'un coeur RISC-V modifié. Les auteurs décrivent également les modifications apportées à cette ISA afin de pouvoir utiliser leur matériel.
+
+\subsection{Algorithme LAC}
+L'algorithme se déroule en trois étapes :
+\begin{itemize}
+    \item Génération des clés : Un premier interlocuteur génère une clé publique et une clé privée. Cette génération est effectuée à partir d'une graine qui est ensuite étandue via l'algorithme
+SHA256. Une multiplication polynomiale afin de créer une instance RLWE (Ring Learning With Error).
+    \item Chiffrement : Le message à envoyer est chiffré via la clé publique à l'aide d'un encodeur BCH, puis transformé en un nombre polynomial. Enfin, ce polynome est "camouflé" dans l'instance 
+RLWE qui introduit de polynomes parasites dans le message chiffré. Le message est ensuite envoyé.
+    \item Déchiffrement : L'instance RLWE est reçue par le second interlocuteur en possession de la clé privée. On soustrait ensuite de l'instance le plus gros des polynomes parasites, puis on 
+utilise un décodeur BCH (et la clé privée) pour soustraire le bruit restant. On obtient alors le message déchiffré.
+\end{itemize}
+Il est important de remarquer trois opérations utilisées dans cet algorithme : la génération de polynomes lors de la génération des clés, la multiplication de polynomes (lors de la création d'instance 
+RLWE et lors de la suppression des polynomes parasites pendant le déchiffrement), et la correction d'erreurs.\\
+La multiplication de polynomes est particulièrement complexe, il serait donc intéressant d'accélérer cette opération avec du matériel.
 
 \section{Implémentations}
 \subsection{Accélération matérielle}
+Quatre accélérateurs sont décrits dans cet article, chacun visant à diminuer les effets des goulots d'étranglements inhérents à l'algorithme LAC.
+
+\subsubsection{MUL-TER : Multiplicateur Polynomial Terniaire}
+LAC se base sur la multiplication de nombre polynomiaux pour le chiffrement et le traitement du bruit lors du déchiffrement. Etant donné qu'il que beaucoup de multiplications sont effectuées 
+sur ce type de nombres et que ce sont des opérations complexes, il est naturel de vouloir acclèrer leur traitement. Dans le cas présent, les auteurs sont partis d'un multiplicateur existant et y ont 
+ajouté la capacité à effectuer des calculs de convolutions négatives. \\
+MULTER est un banc de MAU (Modular Arithmetic Units) capables d'effectuer des additions, soustractions ou une opération neutre (forwarding) afin de réaliser une convolution bouclée à partir de deux polynomes.
+
+\subsubsection{MUL-CHIEN}
+L'algorithme LAC introduit des erreurs lors du (dé)chiffrement. Il est donc nécessaire de savoir détecter et corriger ces dernière efficacement. Le module MUL-CHIEN implémente en matériel 
+l'algorithme de recherche de Chien afin de rechercher la racine des erreurs détectées. Cette opération nécessite de multiplier les éléments d'un polynome par une constante. Pour plus de flexibilité et 
+de simplicité, les auteurs ont développé leur propre multiplicateur pour tenir ce role : MUL-GF (Gallois Field Multiplier) capable d'effectuer quatre opérations en parallèle en seulement neufs cycles à partir du travail 
+d'autres chercheurs. MUL-CHIEN est composé d'un banc de MUL-GF.
+
+\subsubsection{SHA256}
+La génération des nombre polynomiaux, vitale à l'algorithme LAC, est faite par un accélérateur développé par les mêmes chercheurs que ceux écrivant cet article. 
+\footnote{Voir DOI:10.1007/978-3-030-23425-6\_13 : Efficient Hardware/Software Co-design for NTRU}.
+\subsubsection{MOD-Q}
+MOD-Q est un module implémentant l'algorithme de Barrett servant à effectuer de la réduction de modulos en temps constant. 
 
 \subsection{Jeu d'instructions}
-
+Le processeur utilisé est une déclinaison du RISC-V nommée RISCY. Il s'agit d'un processeur 32 bits avec un pipeline a 4 étages (IF, ID, EX et WB) implémentant les sets d'instructions de base
+I (opérations sur entiers), C (instructions compressées) et M (multiplication et division d'entiers).\\
+Le pipeline de base a été modifié afin d'y intégrer l'unité de calculs qui englobe les accélérateurs développés : dans l'étage EX, en plus de l'ALU (Arithmetic and Logic Unit) on retrouve une 
+PQ-ALU (Post-Quantum ALU). \\ 
+Afin d'utiliser cette dernière, quatre nouvelles instructions ont été ajoutées, toutes utilisant le format d'instructions R (elles ne necessitent pas l'utilisation d'immédiats). Un nouvel opcode 
+est utilisé (bits 6 à 0 : 0x77 soit 0111 0111 en binaire) pour ces instructions. Le champ func3 (bits 14 à 12) est utilisé pour déterminer quel accélérateur doit être utilisé. Les champs rs1 (bits 
+19 à 15), rs2 (bits 24 à 20) et rd (bits 11 à 7) sont utilisés en tant que buffers vers d'autres registres dans le GPR (General Purpose Register bank). Ce choix s'explique par le fait que les registres 
+d'entrée (rs1 \& 2) et de sortie (rd) ne sont pas suffisement grands pour pouvoir contenir les opérandes et résultats des calculs effectués par la PQ-ALU. Ces instructions sont :\\
+\begin{itemize}
+    \item pq.mul\_ter
+    \item pq.mul\_chien 
+    \item pq.sha256 
+    \item pq.modq
+\end{itemize}
+\newpage
 \part{Analyse Critique}
+
+\section{Choix du RISC-V}
+
+On pourrait tout d'abord questionner le choix du RISC-V comme jeu d'instructions. Il existe en effet d'autres jeux d'instructions qui seraient en mesure d'implémenter ce genre d'algorithme.\\
+x86 ou Arm viennent a l'esprit. 
+\subsection{Arm}
+Arm est très établis dans le monde des microcontroleurs notament avec son Cortex M4 ou le Cortex A53. Il est donc très courant que les cartes de développement soient équipées 
+de processeurs Arm. Les résultats obtenus par une implémentation d'une solution à un problème donné sont ainsi très souvent donnés pour ce type de plateforme.\\
+
+
+
+
+
+
+RISCV
+SHA256 vs Keccak
 \end{document}
