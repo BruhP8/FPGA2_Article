@@ -120,9 +120,23 @@ Le principal avantage de l'algorithme de Keccak serait ainsi une performance sup
 comparaison à SHA256. Afin de faire un choix informé sur le choix de l'algorithme le plus adapté, il serait intéressant remettre quelques 
 aspects en perspective :
 \begin{itemize}
-    \item La carte de développement utilisée ici (Zynq Ultrascale+ ZCU102) est équipée de plusieurs centaines des milliers de LUTs \footnote{Voir site de Xilinx : \url{https://www.xilinx.com/products/boards-and-kits/ek-u1-zcu102-g.html} : "System Logic Cells (K) : 600"}. 
+    \item La carte de développement utilisée ici (Zynq Ultrascale+ ZCU102) est équipée de plusieurs centaines des milliers de LUTs \footnote{Voir site de Xilinx : 
+    \url{https://www.xilinx.com/products/boards-and-kits/ek-u1-zcu102-g.html} : "System Logic Cells (K) : 600"}. 
 Une fois ces deux nombres côte à côte, l'augmentation engendrée par l'utilisation de l'algorithme de Keccak ne semble pas nécessairement conséquente (bien qu'elle 
 ferait passer le nombre total de LUTs par le coeur RISC-V de 53.819 à 63.223 soit une augmentation de 20\% environ).
+    \item En prenant en considération cette augmentation de ressources utilisées, il est nécessaire de revenir sur les performances supérieures de  
+ l'algorithme de Keccak. De quelle magnitude Keccak est il plus performant que SHA256 ? En regardant la table II de l'article, on constate que l'étape de génération 
+ des clés, mobilisant essentiellement le module SHA256, représente environ 25\% du temps d'exécution total en nombre de cycles. Une implémentation effectuée par d'autres 
+ chercheurs \footnote{Voir : \href{https://eprint.iacr.org/2019/794.pdf}{Efficient Cryptography on the RISC-V Architecture, DOI 10.1007/978-3-030-30530-7\_16 pages 8 et 9}} est parvenue 
+ à un temps de 13.774 cycles par exécution \footnote{Sur une plateforme très différente de la notre (HiFive1 avec SoC FE310-G000), la comparaison est donc difficile}. 
+ Pour rappel, l'étape de génération des clés la plus rapide une fois l'architecture proposée optimisée prenait 542.814 cycles. Même en admettant que les gains soient moindre 
+ pour l'application visée, et pour la plateforme visée, il semble raisonable d'annoncer que l'utilisation de l'algorithme de Keccak permettrai d'économiser quelques centaines 
+ de milliers de cycles sur l'étape de génération des clés soit environ 15\% du temps total d'exécution de LAC. Cette estimation optimisite ne prends pas en compte les nombreux accès 
+ mémoire supplémentaires induits par le chemin de données très large de cet algorithme \footnote{Egalement mentionné dans Efficient Cryptography on the RISC-V Architecture, DOI 10.1007/978-3-030-30530-7\_16 page 8}. 
+ En comparant les gains de performance potentiels apportés par l'algorithme de Keccak à son coût en ressources, il est légitime de questionner l'utilité de son utilisation, surtout dans le cadre 
+ d'un déploiement sur un système embarqué. (20\% de ressources en plus, pour 15\% de performances en plus)
+    \item De même, l'utilisation d'un nombre conséquent de ressources supplémentaires, et l'augmentation du nombre d'accès mémoires requis par l'algorithme pose des questions d'efficacité 
+ energétique. Un papier de recherche comparant l'efficacité de différents algorithmes de chiffrement
 
 TODO : ucontroller
        aspect energie
