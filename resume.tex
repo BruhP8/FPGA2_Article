@@ -22,7 +22,7 @@ chiffrement des données : une clé publique -crée par un des interlocuteurs et
 les données et indispensable à ce processus-. Cette méthode se base sur le fait qu'il est impossible de déchiffrer un message sans la clé privée en un temps dit raisonable. En effet, le temps nécessaire 
 pour calculer des factorielles (sur lesquels se base RSA) étant exponentiel, il est de plus en plus difficile de déchiffrer RSA par attaques de force brute.\footnote{Actuellement, le record est RSA-250 soit 829bits, 
 établit en février 2020 par F. Boudot, P. Gaudry, A. Guillevic, N. Heninger, E. Thomé et P. Zimmermann. Les clés privées actuelles font actuellement entre 1024 et 2048 bits. Temps requis : 
-2700 années CPU, c'est a dire qu'il aurait fallu 2700 ans de travail à un seul coeur (dans ce cas, un Intel Xeon Gold 6130 a 2.1Ghz) pour résoudre le problème. Voir \href{https://eprint.iacr.org/2020/697.pdf}{le papier de recherche publié : DOI 10.1007/978-3-030-56880-1\_3} }.\\
+2700 années CPU, c'est a dire qu'il aurait fallu 2700 années de travail à un seul coeur (dans ce cas, un Intel Xeon Gold 6130 a 2.1Ghz) pour résoudre le problème. Voir \href{https://eprint.iacr.org/2020/697.pdf}{le papier de recherche publié : DOI 10.1007/978-3-030-56880-1\_3} }.\\
 Cependant, l'avènement des processeurs quantiques, et l'arrivée prochaine de vrais ordinateurs quantiques remet en question la résistance de l'algorithme RSA. En effet, ces derniers seraient théoriquement
 capables de déchiffrer une communication RSA en seulement quelques heures de travail.\footnote{Voir \href{https://quantum-journal.org/papers/q-2021-04-15-433/pdf/}{DOI 10.22331/q-2021-04-15-433}}. Il devient donc nécessaire
 de développer des algorithmes résistants aux attaques quantiques, ainsi que de créer le matériel qui sera capable d'exécuter ces nouveaux algorithmes. Parmis eux figurent l'algorithme LAC qui es présenté dans l'article proposé.\\~\\
@@ -108,8 +108,26 @@ En revenche, comme il a pû l'être constaté dans l'article proposé, il existe
 
 
 \section{SHA256 et Keccak}
+L'article mentionne la possibilité de remplacer le module de génération polynomiale SHA256 par un module implémentant l'algorithme de Keccak. Ce 
+changement n'a pas été effectué car :
+\begin{itemize}
+    \item Keccak a un chemin de données plus profond que SHA256 (1600 bits contre seulement 256 bits), ce qui signifie une plus grande complexité.
+    \item SHA256 requiert beaucoup moins de ressources matérielles que Keccak, ce qui le rend potentiellement plus adapté à des applications embarquées. 
+On remarque en effet dans les chiffres donnés une multiplication par 10 de l'utilisation de LUTs en utilisant Keccak (10.435 contre 1.031), et l'utilisation 
+de 2,7 fois plus de registres.
+\end{itemize} 
+Le principal avantage de l'algorithme de Keccak serait ainsi une performance supérieure pour la génération de nombres polynomiaux en 
+comparaison à SHA256. Afin de faire un choix informé sur le choix de l'algorithme le plus adapté, il serait intéressant remettre quelques 
+aspects en perspective :
+\begin{itemize}
+    \item La carte de développement utilisée ici (Zynq Ultrascale+ ZCU102) est équipée de plusieurs centaines des milliers de LUTs \footnote{Voir site de Xilinx : \url{https://www.xilinx.com/products/boards-and-kits/ek-u1-zcu102-g.html} : "System Logic Cells (K) : 600"}. 
+Une fois ces deux nombres côte à côte, l'augmentation engendrée par l'utilisation de l'algorithme de Keccak ne semble pas nécessairement conséquente (bien qu'elle 
+ferait passer le nombre total de LUTs par le coeur RISC-V de 53.819 à 63.223 soit une augmentation de 20\% environ).
 
-
+TODO : ucontroller
+       aspect energie
+       plus performant de combien ? Worth la perte de 20\% de ressources et energie ?
+\end{itemize}
 
 
 \section{Résultats}
