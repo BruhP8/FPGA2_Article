@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1643360342 "/home/iamgron/Documents/Fac/M2/FPGA2/article/FPGA2_Article/resume.tex" "build/resume.pdf" "resume" 1643360342
+["pdflatex"] 1643372296 "/home/iamgron/Documents/Fac/M2/FPGA2/article/FPGA2_Article/resume.tex" "build/resume.pdf" "resume" 1643372296
   "/etc/texmf/web2c/texmf.cnf" 1622818514 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1616660940 25396 a2a54454e5bdc35520871912d3839276 ""
   "/home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk" 1616659748 31928 f5bdcdef078fef43d597715f8feb7a6b ""
@@ -12,7 +12,7 @@
   "/home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk" 1614003153 42496 3b84a129b553407d62aed95f01fe3ace ""
   "/home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk" 1643354449 15172 ccf4ce07c7fc30bd22279770d0d10e2d ""
   "/home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk" 1605124586 14040 34c778121aee326d543a31922d5609e6 ""
-  "/home/iamgron/Documents/Fac/M2/FPGA2/article/FPGA2_Article/resume.tex" 1643360341 15938 bf1188d5df315b2b38034acd4c83154d ""
+  "/home/iamgron/Documents/Fac/M2/FPGA2/article/FPGA2_Article/resume.tex" 1643372294 17240 4036871a6dabf63e0413c604cf432635 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -107,11 +107,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1613593815 38841 799d1dd9682a55ce442e10c99777ecc1 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1634549910 128067 403859e4d35fdff4c458758f0e5ea400 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1634549919 1340640 03b63c4c92775aa4b037fe3d99c0dadb ""
-  "build/resume.aux" 1643360342 2896 8b4f03fede09646f8ff75b96bd2edc4e "pdflatex"
-  "build/resume.out" 1643360342 1103 b32ee9865856f48cb1ef3d81479be628 "pdflatex"
-  "resume.tex" 1643360341 15938 bf1188d5df315b2b38034acd4c83154d ""
+  "build/resume.aux" 1643372296 2896 36d85d5477b83f5b1a0dc020cf038b89 "pdflatex"
+  "build/resume.out" 1643372296 1105 bad23fe6cde5ff744f224607471f1d69 "pdflatex"
+  "build/resume.toc" 1643372296 1374 60fb9d84522ab525d968879326eb3ece "pdflatex"
+  "resume.tex" 1643372294 17240 4036871a6dabf63e0413c604cf432635 ""
   (generated)
-  "build/resume.aux"
   "build/resume.out"
+  "build/resume.toc"
+  "build/resume.aux"
   "build/resume.log"
   "build/resume.pdf"

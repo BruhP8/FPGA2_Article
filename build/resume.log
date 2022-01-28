@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.18)  28 JAN 2022 09:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.18)  28 JAN 2022 13:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -358,46 +358,55 @@ LaTeX Info: Redefining \nameref on input line 13.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 17.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 17.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+) (build/resume.toc)
+\tf@toc=\write4
+\openout4 = `resume.toc'.
+
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 20--31
+Underfull \hbox (badness 10000) in paragraph at lines 24--35
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 69--77
+Underfull \hbox (badness 10000) in paragraph at lines 73--81
 
  []
 
 [3]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 124.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 128.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [4] [5] (build/resume.aux)
+) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 149--153
+
+ []
+
+[5] (build/resume.aux)
 Package rerunfilecheck Info: File `resume.out' has not changed.
-(rerunfilecheck)             Checksum: B32EE9865856F48CB1EF3D81479BE628;1103.
+(rerunfilecheck)             Checksum: BAD23FE6CDE5FF744F224607471F1D69;1105.
  ) 
 Here is how much of TeX's memory you used:
- 8525 strings out of 481182
- 125183 string characters out of 5913603
+ 8532 strings out of 481182
+ 125256 string characters out of 5913603
  455796 words of memory out of 5000000
- 25300 multiletter control sequences out of 15000+600000
+ 25302 multiletter control sequences out of 15000+600000
  418124 words of font info for 65 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 71i,6n,74p,379b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on build/resume.pdf (5 pages, 134495 bytes).
+ 71i,6n,74p,389b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/iamgron/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on build/resume.pdf (5 pages, 142411 bytes).
 PDF statistics:
- 556 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
+ 599 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
